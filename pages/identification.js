@@ -6,7 +6,7 @@ import styles from '../styles/Identification.module.css'; // 对应的 CSS 模�
 export default function IdentificationAnalysis() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [detectionResult, setDetectionResult] = useState(null);
+  const [detectionResult, setDetectionResult] = useState(null); // full API response
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -46,8 +46,8 @@ export default function IdentificationAnalysis() {
         throw new Error(errorData.error || 'Image identification failed.');
       }
 
-      const result = await response.json();
-      setDetectionResult(result.result); // 假设 API 返回的 JSON 中有一个 result 字段包含结果
+  const result = await response.json();
+  setDetectionResult(result); // 现在直接保存完整结构 { campy:[], salmonella:[], summary, metadata }
 
     } catch (err) {
       console.error('Upload error:', err);
@@ -84,13 +84,44 @@ export default function IdentificationAnalysis() {
 
         {detectionResult && (
           <div className={styles.results}>
-            <h3>Analysis Results:</h3>
-            {/* 这里根据你的 AI 模型返回的结果结构来显示 */}
-            <pre>{JSON.stringify(detectionResult, null, 2)}</pre>
+            <h3>Analysis Results</h3>
+            <div className={styles.wellColumnsWrapper}>
+              <WellColumn title="Campylobacter (7 wells incl. NC)" data={detectionResult.campy} />
+              <WellColumn title="Salmonella (7 wells incl. NC)" data={detectionResult.salmonella} />
+            </div>
           </div>
         )}
 
       </main>
     </div>
   );
-} 
+}
+
+// Presentational components
+function WellColumn({ title, data = [] }) {
+  return (
+    <div className={styles.wellColumn}>
+      <h4 className={styles.columnTitle}>{title}</h4>
+      <ul className={styles.wellList}>
+        {data.map((val, idx) => (
+          <li key={idx} className={styles.wellItem}>
+            <span className={styles.wellIndex}>{idx === 0 ? 'NC' : idx}</span>
+            <StatusBadge value={val} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function StatusBadge({ value }) {
+  const positive = value === 'positive';
+  return (
+    <span className={`${styles.statusBadge} ${positive ? styles.positive : styles.negative}`}> 
+      {positive ? 'Positive' : 'Negative'}
+    </span>
+  );
+}
+
+// SummaryCard removed per latest requirement (summary section omitted)
+// SummaryCard removed per latest requirement (summary section omitted)

@@ -13,28 +13,38 @@ export default async function handler(req, res) {
     return;
   }
 
-  // TODO: Implement image receiving and AI model calling logic here
-  // You'll need to use a library like 'formidable' or 'multer' to handle the file upload
-  // Then, pass the image data to your AI model for analysis
-  // Finally, send the analysis result back to the frontend
+  // NOTE: File upload parsing intentionally omitted (image content not yet analyzed).
+  // Frontend can still send multipart/form-data; here we just drain the stream.
+  // Minimal drain to avoid hanging when a file is sent.
+  await new Promise(resolve => {
+    req.on('data', () => {});
+    req.on('end', resolve);
+  });
 
-  console.log('Received POST request to /api/identify');
+  // Updated requirement: total 7 wells including NC as first element.
+  // Pattern provided (including NC): p, n, p, n, n, p, p
+  const campy = ['positive','negative','positive','negative','negative','positive','positive'];
+  const salmonella = ['positive','negative','positive','negative','negative','positive','positive'];
 
-  // Example placeholder response (replace with actual AI model result)
-  const dummyResult = {
-    result: {
-      identification: 'Escherichia coli',
-      confidence: 0.95,
-      resistance_prediction: {
-        antibiotic_A: 'Susceptible',
-        antibiotic_B: 'Resistant',
-      },
+  function summarize(arr){
+    const positive = arr.filter(v=>v==='positive').length;
+    const negative = arr.length - positive;
+    return { total: arr.length, positive, negative };
+  }
+
+  const response = {
+    campy,
+    salmonella,
+    summary: {
+      campy: summarize(campy),
+      salmonella: summarize(salmonella)
     },
-    message: 'Image processed successfully (placeholder result)',
+    metadata: {
+      receivedAt: new Date().toISOString(),
+      processingMs: 0,
+      note: 'Static classification 7 wells including NC.'
+    }
   };
 
-  // Simulate processing delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  res.status(200).json(dummyResult);
-} 
+  res.status(200).json(response);
+}

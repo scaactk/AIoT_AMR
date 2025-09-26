@@ -1,61 +1,203 @@
-# AIoT AMR Surveillance System
+<div align="center">
 
-A Next.js dashboard for monitoring antimicrobial resistance (AMR) data with interactive maps and trends.
+# AIoT-Enhanced Global AMR Surveillance Platform
+**Online system for the paper:**  
+**“Artificial Intelligence of Things-Enhanced Automated Surveillance System for Global Antimicrobial Resistance in Food Supply Chain.”**
 
-## Features
+</div>
 
-- Interactive Map (Mapbox GL)
-- Charts and trend visualizations
-- MongoDB backend for storing AMR data and geo points
-- Admin pages for warnings and identification
+This repository contains the Node.js / Next.js implementation of the interactive Antimicrobial Resistance (AMR) monitoring and analytics platform described in the above research work. It integrates data visualization, geospatial intelligence, and automated warning logic to support global AMR risk assessment in the food supply chain.
 
-## Quickstart
+---
 
-1. Install dependencies
+## 1. Core Objectives
 
+- Provide a unified web interface for global AMR geospatial distribution and trend analysis.
+- Support ingestion and enrichment of monitoring points (geo + resistance metadata).
+- Enable early warning signals and identification workflows for elevated AMR levels.
+- Serve as a reproducible reference implementation accompanying the academic paper.
+
+---
+
+## 2. Technology Stack
+
+| Layer | Technology | Purpose |
+|-------|------------|---------|
+| Runtime | Node.js (LTS) | Server-side execution / Next.js runtime |
+| Framework | Next.js 15 (Pages Router) | Full‑stack React application |
+| Frontend | React 19, TailwindCSS | UI components & styling |
+| Charts | chart.js + react-chartjs-2 | Statistical & temporal visualizations |
+| Maps / Geo | mapbox-gl | 3D globe & geospatial interaction |
+| Database ODM | Mongoose | Data modeling over MongoDB |
+| Database | MongoDB | Persistence for AMR data, geo points, warnings |
+| HTTP / Data | Built-in Next.js API routes | Serverless-style endpoints |
+| Utilities | axios, html2canvas, react-icons | Data fetch, snapshot, icons |
+| Tooling | ESLint, PostCSS, Tailwind, TypeScript types (partial) | Dev productivity & consistency |
+
+---
+
+## 2.1 Visual Overview
+
+Dashboard interface:
+
+<p align="center">
+	<img alt="AMR Monitoring Dashboard" src="public/images/dashboard.png" width="900" />
+</p>
+
+---
+
+## 3. Repository Structure (Simplified)
+
+```
+components/        # Reusable UI components
+lib/               # Database / support utilities (e.g. mongodb.js)
+models/            # Mongoose schemas (AMRData, GeoPoint, Warning)
+pages/             # Next.js pages (dashboard, map, trends, system, API)
+scripts/           # Data seeding utilities
+styles/            # CSS modules & global styles
+public/images/     # Static assets & screenshots
+.env.local.example # Example environment variables (no secrets)
+```
+
+---
+
+## 4. Prerequisites
+
+| Dependency | Recommended Version | Notes |
+|------------|---------------------|-------|
+| Node.js | 20 LTS or 22 LTS | Project tested with modern LTS; older 18 may work but not guaranteed |
+| npm | 10+ | Comes with Node LTS; pnpm/yarn also fine |
+| MongoDB | 7.0+ | Atlas or local deployment |
+| Mapbox Account | Valid public token (pk.*) | Required for map rendering |
+
+Why upgraded? AMR workloads benefit from improved V8 performance & security patches in Node 20+/22+. MongoDB 7 adds query performance & time-series improvements useful for longitudinal AMR metrics.
+
+Check versions:
+```bash
+node -v
+npm -v
+```
+
+---
+
+## 5. Installation & Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/scaactk/AIoT_AMR.git
+cd AIoT_AMR
+```
+
+2. Install dependencies (this installs Next.js, React, TailwindCSS, Chart.js, Mapbox GL, etc. as declared in `package.json`):
 ```bash
 npm install
 ```
 
-2. Create environment variables
-
-Create a `.env.local` in the project root and add:
-
+3. Create environment file:
+Copy `.env.local.example` to `.env.local` and fill real values:
 ```
-NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
-MONGODB_URI=your_mongodb_connection_string
+NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=pk.your_public_token_here
+MONGODB_URI=mongodb+srv://user:pass@cluster0.example.mongodb.net/amr?retryWrites=true&w=majority
 ```
 
-- `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` is required to render the Mapbox map in the browser.
-- `MONGODB_URI` is used by the API routes to connect to your MongoDB instance.
+4. (Optional) Seed sample data:
+```bash
+node scripts/seed2.js
+node scripts/seedGeoPoints.js
+node scripts/seedWarnings.js
+```
+Adjust scripts if your connection string or schema changes.
 
-3. Run the development server
-
+5. Start development server:
 ```bash
 npm run dev
 ```
+Visit: http://localhost:3000
 
-4. Open the app
+6. Production build (optional):
+```bash
+npm run build
+npm start
+```
 
-Visit http://localhost:3000 in your browser.
+---
 
-## Notes & Security
+## 6. Environment Variables
 
-- The Mapbox token used in the browser should be a public token (starts with `pk.`). Do not commit private keys or full admin tokens.
-- If you accidentally committed secrets (like a token) to git history, consider rotating the token and using tools like `git filter-repo` or `bfg` to remove it from history.
+| Name | Required | Scope | Description |
+|------|----------|-------|-------------|
+| `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Yes | Client + Server | Public Mapbox token for mapbox-gl |
+| `MONGODB_URI` | Yes | Server | MongoDB connection string |
+| `NODE_ENV` | No | Both | Set automatically by Next.js (override if needed) |
 
-## Deployment
+Never commit real secrets in `.env.local`; only the example file is tracked.
 
-This app is ready to deploy to Vercel. Make sure to set the environment variables in the hosting provider (NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN and MONGODB_URI).
+---
 
-## Files of interest
+## 7. Data Model (High-Level)
 
-- `pages/map.js` — Map page (Mapbox GL integration)
-- `pages/index.js` — Dashboard
-- `lib/mongodb.js` — MongoDB helper
-- `pages/api/*` — Serverless API routes for data, geoPoints, warnings
+- `GeoPoint` — Location + resistance metadata (amrLevel, resistance spectrum, sample stats).
+- `AMRData` — (Extendable) time-series or aggregated resistance indicators.
+- `Warning` — Triggered or configured risk notifications.
 
-## Next steps
+Extend models in `models/` and corresponding API handlers in `pages/api/` to evolve business logic.
 
-- Rotate Mapbox token if it was committed.
-- Add `.env.example` to the repo to document required env vars without secrets.
+---
+
+## 8. Key Pages & Modules
+
+| Path | Purpose |
+|------|---------|
+| `/` | Dashboard overview cards & KPIs |
+| `/map` | Interactive Mapbox globe & point details |
+| `/trends` | Temporal analysis & charts |
+| `/identification` | AMR identification workflow |
+| `/warning` | Warnings management UI |
+| `/api/*` | Data, geoPoints, warnings, identification endpoints |
+
+---
+
+## 9. Security & Operational Notes
+
+- Use only public (`pk.*`) Mapbox tokens in client code.
+- Rotate tokens or database credentials immediately if accidentally committed.
+- For production: enable proper MongoDB network rules / IP allow-list + user-scoped credentials.
+- Consider adding schema & payload validation (e.g. Zod / Joi) before public deployment.
+
+---
+
+
+## 10. Deployment
+
+Typical options:
+
+| Platform | Notes |
+|----------|-------|
+| Vercel | Easiest for Next.js; add env vars in dashboard |
+| Docker + Any Cloud | Build once; run Node server plus managed MongoDB |
+| Kubernetes | For scaling + multi-region setups |
+
+Minimal Dockerfile example (future addition):
+```Dockerfile
+# FROM node:18-alpine
+# WORKDIR /app
+# COPY package*.json ./
+# RUN npm ci --only=production
+# COPY . .
+# RUN npm run build
+# CMD ["npm", "start"]
+```
+
+---
+
+## 11. Citation
+
+If you use this system or derivative work in academic publications, please cite:
+
+> Authors. *Artificial Intelligence of Things-Enhanced Automated Surveillance System for Global Antimicrobial Resistance in Food Supply Chain.* Year, Venue/Journal (to appear).
+
+
+---
+
+
+For questions or collaboration requests, open an Issue or Discussion.
