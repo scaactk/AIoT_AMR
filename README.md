@@ -1,4 +1,4 @@
-# AMR Monitor
+# AIoT AMR Surveillance System
 
 A Next.js dashboard for monitoring antimicrobial resistance (AMR) data with interactive maps and trends.
 
