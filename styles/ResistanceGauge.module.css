@@ -1,0 +1,49 @@
+.gaugeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 160px;
+  position: relative;
+  overflow: visible;
+}
+
+.gaugeSvg {
+  display: block;
+  overflow: visible;
+  height: 140px;
+}
+
+.gaugeTick {
+  font-size: 1rem;
+  fill: #cbd5e1;
+  font-weight: 500;
+}
+
+.gaugeNeedle {
+  filter: drop-shadow(0 0 4px #6366f1);
+  stroke: #6366f1 !important;
+}
+
+.gaugeValueBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0;
+}
+
+.gaugeValue {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #374151;
+  text-shadow: 0 2px 8px #f6f5f3;
+  line-height: 1;
+}
+
+.gaugeLabel {
+  font-size: 1.5rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+  opacity: 0.95;
+} 

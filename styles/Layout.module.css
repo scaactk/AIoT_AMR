@@ -1,0 +1,29 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.container {
+  display: flex;
+  width: 100%; /* Ensure container takes full width */
+}
+
+.main {
+  flex-grow: 1; /* Allow main content area to fill remaining space */
+  padding: 0 20px 20px 20px; /* Adjust padding as needed for spacing */
+  /* Removed margin-left as flexbox handles spacing */
+  /* margin-left: var(--sidebar-width); */
+  background-color: #1f2937;
+  width: 100%;
+  display: flex;
+}
+
+.content {
+  width: 100%; /* Content inside main should take full width */
+  /* Padding and background specific to page content sections, handled in page modules */
+  /* background-color: #ffffff; */
+  /* color: #333333; */
+  /* min-height: 100vh; */
+}
+
+/* Add any other layout related styles here */ 

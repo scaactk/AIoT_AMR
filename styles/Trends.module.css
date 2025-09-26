@@ -1,0 +1,97 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* 侧边栏宽度 */
+}
+
+.controls {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  background-color: rgba(247,243,232,0.7);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(183,181,228,0.08);
+}
+
+.selectGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectGroup label {
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #f4f6f7;
+  color: #374151;
+  font-size: 0.95rem;
+  min-width: 200px;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chartCard {
+  background-color: rgba(247,243,232,0.7);
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(183,181,228,0.08);
+  height: 400px;
+}
+
+.insights {
+  background-color: rgba(247,243,232,0.7);
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(183,181,228,0.08);
+}
+
+.insights h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 1.5rem;
+}
+
+.insightCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.insightCard {
+  padding: 1.5rem;
+  background-color: rgba(247,243,232,0.7);
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.insightCard h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4b5563;
+  margin-bottom: 0.75rem;
+}
+
+.insightCard p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+} 

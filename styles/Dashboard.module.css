@@ -1,0 +1,312 @@
+/* 主布局 */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 2rem 2rem;
+  background: transparent;
+}
+
+.content::before,
+.content::after {
+  z-index: -1;
+}
+
+.content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='7' fill='%236366f1' fill-opacity='0.22'/%3E%3Ccircle cx='90' cy='90' r='5' fill='%23ec4899' fill-opacity='0.18'/%3E%3Ccircle cx='70' cy='50' r='6' fill='%234ade80' fill-opacity='0.18'/%3E%3Ccircle cx='50' cy='100' r='4' fill='%23fbbf24' fill-opacity='0.18'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  animation: dotsMove 30s linear infinite;
+  pointer-events: none;
+}
+
+.content::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle at 20% 20%, rgba(99,102,241,0.10) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(236,72,153,0.10) 0%, transparent 60%);
+  filter: blur(40px);
+  pointer-events: none;
+  animation: mistMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes dotsMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 160px 160px;
+  }
+}
+
+@keyframes mistMove {
+  0% {
+    transform: translate(-5%, -5%) scale(1.1);
+  }
+  100% {
+    transform: translate(5%, 5%) scale(1.05);
+  }
+}
+
+/* 加载器 */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 0.25rem solid rgba(99, 102, 241, 0.3);
+  border-top-color: #6366f1;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 图表网格 */
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* 统计卡片区域 */
+.statCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* 图例样式 */
+.legend {
+  display: flex;
+  margin-top: 0.5rem;
+}
+
+
+/* 仪表盘 */
+.simpleGauge {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: relative; /* 确保子元素定位基于此 */
+}
+
+/* 仪表盘主体 */
+.gaugeBody {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  margin-bottom: 30px; /* 增加底部边距，为标签腾出空间 */
+}
+
+/* 半圆（渐变背景） */
+.gaugeArc {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 150px 150px 0 0;
+  background: linear-gradient(90deg, 
+    #4caf50 0%, 
+    #8bc34a 20%, 
+    #cddc39 40%, 
+    #ffeb3b 60%, 
+    #ff9800 80%, 
+    #f44336 100%
+  );
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1; /* 确保半圆在刻度下方 */
+}
+
+/* 刻度值和刻度线（沿半圆外缘分布） */
+.circularScale {
+  position: absolute;
+  margin-top: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 3; /* 确保刻度在半圆之上 */
+}
+
+/* 每个刻度值（沿半圆外侧排列） */
+.circularScale span {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 定位并旋转刻度值，模拟沿半圆外侧排列 */
+.circularScale span:nth-child(1) {
+  left: 0%;
+  transform: translateX(-50%) translateY(-30px) rotate(-45deg); /* 0 位置 */
+}
+.circularScale span:nth-child(2) {
+  left: 25%;
+  transform: translateX(-50%) translateY(-30px) rotate(-22.5deg); /* 25 位置 */
+}
+.circularScale span:nth-child(3) {
+  left: 50%;
+  transform: translateX(-50%) translateY(-30px) rotate(0deg); /* 50 位置 */
+}
+.circularScale span:nth-child(4) {
+  left: 75%;
+  transform: translateX(-50%) translateY(-30px) rotate(22.5deg); /* 75 位置 */
+}
+.circularScale span:nth-child(5) {
+  left: 100%;
+  transform: translateX(-50%) translateY(-30px) rotate(45deg); /* 100 位置 */
+}
+
+/* 刻度线（指向半圆内侧，与半圆底部对齐） */
+.circularScale span::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  background-color: rgba(255, 255, 255, 0.7);
+  left: 50%;
+  bottom: -15; /* 确保与半圆底部对齐 */
+  transform: translateX(-50%) translateY(5px); /* 微调位置，使线与半圆底部衔接 */
+  border-radius: 1px;
+}
+
+/* 主要刻度线（每25%更明显） */
+.circularScale span:nth-child(odd)::after {
+  height: 18px;
+  width: 3px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* 指针 */
+.gaugeNeedle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 110px;
+  background-color: white;
+  transform-origin: bottom center;
+  z-index: 10; /* 确保指针在最上层 */
+  transition: transform 0.5s ease-out;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+}
+
+/* 指针顶部尖端 */
+.gaugeNeedle::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -2px;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid white;
+}
+
+/* 指针圆点 */
+.gaugePoint {
+  position: absolute;
+  bottom: -5;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 20;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* 数值显示 */
+.gaugeValue {
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 5;
+}
+
+.gaugeNumber {
+  font-size: 56px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* 标签文字容器 */
+.gaugeLabelContainer {
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 30;
+  margin-top: -10px;
+}
+
+/* 标签文字 */
+.gaugeLabel {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1500px) {
+  .content {
+    max-width: 100%;
+    padding: 2rem 1rem 1rem 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard {
+    flex-direction: column;
+  }
+  .content {
+    padding: 0;
+  }
+}

@@ -1,0 +1,119 @@
+.mapContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.homeButton {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #374151;
+  text-decoration: none;
+  font-weight: 500;
+  z-index: 1000;
+  transition: all 0.2s;
+}
+
+.homeButton:hover {
+  background-color: #f3f4f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.homeIcon {
+  font-size: 1.25rem;
+  color: #4a90e2;
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ff4444;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.infoPanel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, #f6f5f3 80%, #f7f3e8 100%);
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(183, 181, 228, 0.13), 0 1.5px 6px rgba(55, 65, 81, 0.07);
+  max-width: 320px;
+  z-index: 1000;
+  border: 1.5px solid #e5e4ea;
+}
+
+.panelTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #374151;
+  letter-spacing: 0.5px;
+}
+
+.panelContent {
+  margin-bottom: 1rem;
+}
+
+.panelContent p {
+  margin: 0.5rem 0;
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.label {
+  font-weight: 600;
+  color: #b7b5e4;
+  margin-right: 0.25em;
+}
+
+.closeButton {
+  width: 100%;
+  padding: 0.5rem;
+  background: linear-gradient(90deg, #b7b5e4 60%, #a3c1ad 100%);
+  color: #374151;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 1px 4px rgba(183, 181, 228, 0.10);
+  transition: background 0.2s, color 0.2s;
+}
+
+.closeButton:hover {
+  background: linear-gradient(90deg, #a3c1ad 60%, #b7b5e4 100%);
+  color: #22223b;
+}
+
+.marker {
+  transition: transform 0.2s;
+}
+
+.marker:hover {
+  transform: scale(1.1);
+} 

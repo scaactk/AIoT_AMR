@@ -1,0 +1,114 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* 浅色背景 */
+}
+
+.content {
+  flex-grow: 1;
+  padding: 1.5rem; /* 调整 padding */
+  margin-left: 240px; /* 与sidebar宽度一致 */
+  background-color: #f3f4f6; /* 浅色背景 */
+  min-height: 100vh;
+  color: #1f2937; /* 深色文字 */
+}
+
+.pageHeader {
+  margin-bottom: 1.5rem; /* 调整 margin */
+}
+
+.pageHeader h1 {
+  font-size: 2rem; /* 调整字号 */
+  color: #111827; /* 深色标题 */
+}
+
+.uploadSection {
+  background-color: rgba(247,243,232,0.7);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.uploadSection h2 {
+  font-size: 1.25rem; /* 调整字号 */
+  margin-bottom: 1rem; /* 调整 margin */
+  color: #1f2937; /* 深色文字 */
+}
+
+.uploadSection input[type="file"] {
+  margin-bottom: 1rem; /* 调整 margin */
+  color: #374151; /* 文件选择器文字颜色 */
+}
+
+.uploadSection button {
+  background-color: #2563eb; /* 蓝色按钮 */
+  color: white;
+  padding: 0.5rem 1rem; /* 调整 padding */
+  border: none;
+  border-radius: 0.375rem; /* 调整圆角 */
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.uploadSection button:disabled {
+  background-color: #d1d5db; /* 禁用状态背景色 */
+  cursor: not-allowed;
+}
+
+.uploadSection button:hover:not(:disabled) {
+  background-color: #1d4ed8; /* 悬停效果 */
+}
+
+.error {
+  color: #ef4444; /* 红色错误信息 */
+  margin-top: 1rem; /* 调整 margin */
+}
+
+.preview {
+  background-color: rgba(247,243,232,0.7);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.preview h3 {
+  font-size: 1.25rem; /* 调整字号 */
+  margin-bottom: 1rem; /* 调整 margin */
+  color: #1f2937; /* 深色文字 */
+}
+
+.imagePreview {
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+.results {
+  background-color: rgba(247,243,232,0.7);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.results h3 {
+  font-size: 1.25rem; /* 调整字号 */
+  margin-bottom: 1rem; /* 调整 margin */
+  color: #1f2937; /* 深色文字 */
+}
+
+.results pre {
+  background-color: #f9fafb; /* 代码块背景 */
+  color: #1f2937; /* 代码文字颜色 */
+  padding: 1rem; /* 调整 padding */
+  border-radius: 0.25rem; /* 调整圆角 */
+  overflow-x: auto;
+} 
