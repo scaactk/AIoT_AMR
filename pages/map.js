@@ -44,7 +44,7 @@ export default function Map() {
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/light-v11',
         center: [-98.5795, 45],
-        zoom: 4,
+        zoom: 2,
         pitch: 0,
         bearing: 0,
         projection: 'globe' // 使用地球投影
